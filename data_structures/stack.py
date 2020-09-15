@@ -24,14 +24,27 @@ class Stack:
 
 
 class Node:
-    def __init__(self):
-        super().__init__()
-
-
-class StackNode:
     def __init__(self, val):
         self.val = val
         self.next = None
+
+
+class StackNode:
+    def __init__(self):
+        self.head = None
+
+    def push(self, val):
+        new_node = Node(val)
+        new_node.next = self.head
+        self.head = new_node
+        return self.head.val
+
+    def pop(self):
+        self.head = self.head.next
+        return self.head.val if self.head else None
+
+    def is_empty(self):
+        return not self.head
 
 
 def main():
@@ -51,6 +64,18 @@ def main():
 
     stack = Stack()
     print(stack.push(1))
+    print(stack.pop())
+    print(stack.is_empty())
+
+    stack = StackNode()
+    print(stack.is_empty())
+    print(stack.push(2))
+    print(stack.is_empty())
+    print(stack.push(5))
+    print(stack.push(8))
+    print(stack.pop())
+    print(stack.pop())
+    print(stack.is_empty())
     print(stack.pop())
     print(stack.is_empty())
 
