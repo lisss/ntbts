@@ -40,6 +40,8 @@ class StackNode:
         return self.head.val
 
     def pop(self):
+        if not self.head:
+            return
         self.head = self.head.next
         return self.head.val if self.head else None
 
@@ -69,6 +71,7 @@ def main():
 
     stack = StackNode()
     print(stack.is_empty())
+    print(stack.pop())
     print(stack.push(2))
     print(stack.is_empty())
     print(stack.push(5))
