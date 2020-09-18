@@ -4,15 +4,14 @@ class Trie:
 
     def insert(self, word: str):
         index = 0
-        chars = list(word)
 
         def _do_insert(trie, index):
-            if index == len(chars):
+            if index == len(word):
                 return trie
-            if index == len(chars) - 1:
-                trie['is_end'] = True
-            ch = chars[index]
+            ch = word[index]
             next_tree = trie[ch] if ch in trie else {}
+            if index == len(word) - 1:
+                next_tree['is_end'] = True
             index += 1
             trie[ch] = _do_insert(next_tree, index)
             return trie
@@ -23,15 +22,14 @@ class Trie:
         Returns if the word is in the trie.
         """
         index = 0
-        chars = list(word)
 
         def _do_search_exact(trie, index):
-            if index == len(chars):
+            if index == len(word):
                 return False
-            ch = chars[index]
+            ch = word[index]
             if ch not in trie:
                 return False
-            if trie.get('is_end') and index == len(chars) - 1:
+            if trie[ch].get('is_end') and index == len(word) - 1:
                 return True
             index += 1
             return _do_search_exact(trie[ch], index)
@@ -44,12 +42,11 @@ class Trie:
         that starts with the given prefix.
         """
         index = 0
-        chars = list(prefix)
 
         def _do_search_starts_with(trie, index):
-            if index == len(chars):
+            if index == len(prefix):
                 return True
-            ch = chars[index]
+            ch = prefix[index]
             if ch not in trie:
                 return False
             index += 1
@@ -105,3 +102,9 @@ print(trie.startsWith('jan'))  # false
 print(trie.startsWith('rent'))  # true
 print(trie.startsWith('beer'))  # true
 print(trie.startsWith('jam'))  # true
+
+print('\n-- case 4 --')
+trie = Trie()
+trie.insert("forefit")
+trie.insert("forefinger")
+print(trie.search('forefin'))  # false
