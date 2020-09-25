@@ -1,3 +1,7 @@
+# TODO: implement this version:
+# https://leetcode.com/problems/design-add-and-search-words-data-structure/
+
+
 class Trie:
     def __init__(self):
         self.trie = {}
