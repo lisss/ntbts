@@ -17,12 +17,9 @@ class MyCircularDeque:
             return False
         if self.isEmpty():
             self.dequeue[self.start] = value
-        else:
-            if not self.start:
-                self.start = len(self.dequeue) - self.start - 1
-            else:
-                self.start -= 1
-            self.dequeue[self.start] = value
+            return True
+        self.start = (self.start - 1) % len(self.dequeue)
+        self.dequeue[self.start] = value
         return True
 
     def insertLast(self, value: int):
@@ -35,10 +32,7 @@ class MyCircularDeque:
         if self.isEmpty():
             self.dequeue[self.end] = value
             return True
-        elif self.end == len(self.dequeue) - 1:
-            self.end = 0
-        else:
-            self.end += 1
+        self.end = (self.end + 1) % len(self.dequeue)
         self.dequeue[self.end] = value
         return True
 
