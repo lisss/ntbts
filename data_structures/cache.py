@@ -33,16 +33,18 @@ class DLList:
             self.tail = self.tail.prev
             return key
 
-    def get(self, index):
-        current = self.head
-        count = 0
 
-        while current:
-            if count == index:
-                return current.data
-            count += 1
-            current = current.next
-        return -1
+def shift_node(node, llist):
+    if not node == llist.head:
+        if llist.tail == node:
+            llist.tail = node.prev
+        prev = node.prev
+        next = node.next
+        if next:
+            next.prev = prev
+        prev.next = next
+        node.next = llist.head
+        llist.add_head(node)
 
 
 class LRUCache:
@@ -55,26 +57,14 @@ class LRUCache:
         if not self.cache.get(key):
             return -1
         node = self.cache[key]
-        if not node == self.dllist.head:
-            if self.dllist.tail == node:
-                self.dllist.tail = node.prev
-            prev = node.prev
-            next = node.next
-            if next:
-                next.prev = prev
-            prev.next = next
-            node.next = self.dllist.head
-            self.dllist.add_head(node)
-
+        shift_node(node, self.dllist)
         return node.data
 
     def put(self, key, value):
         if self.cache.get(key):
-            item = self.cache[key]
-            item.data = value
-            self.dllist.add_head(item)
-            if len(self.cache) == self.capacity:
-                self.dllist.remove_tail()
+            node = self.cache[key]
+            node.data = value
+            shift_node(node, self.dllist)
         else:
             node = DLNode(key, value)
             if len(self.cache) == self.capacity:
