@@ -44,3 +44,21 @@ def test_lru_4():
     assert lRUCache.get(2) == 1
     assert lRUCache.get(3) == -1
     assert lRUCache.get(4) == 3
+
+
+def test_lru_5():
+    lRUCache = LRUCache(3)
+    lRUCache.put(1, 1)
+    lRUCache.put(2, 2)
+    lRUCache.put(3, 3)
+    lRUCache.put(4, 4)
+    assert lRUCache.get(4) == 4
+    assert lRUCache.get(3) == 3
+    assert lRUCache.get(2) == 2
+    assert lRUCache.get(1) == -1
+    lRUCache.put(5, 5)
+    assert lRUCache.get(1) == -1
+    assert lRUCache.get(2) == 2
+    assert lRUCache.get(3) == 3
+    assert lRUCache.get(4) == -1
+    assert lRUCache.get(5) == 5
