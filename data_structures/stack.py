@@ -23,32 +23,6 @@ class Stack:
         return self.empty
 
 
-class Node:
-    def __init__(self, val):
-        self.val = val
-        self.next = None
-
-
-class StackNode:
-    def __init__(self):
-        self.head = None
-
-    def push(self, val):
-        new_node = Node(val)
-        new_node.next = self.head
-        self.head = new_node
-        return self.head.val
-
-    def pop(self):
-        if not self.head:
-            return
-        self.head = self.head.next
-        return self.head.val if self.head else None
-
-    def is_empty(self):
-        return not self.head
-
-
 def main():
     stack = Stack()
     print(stack.push(1))
@@ -69,7 +43,7 @@ def main():
     print(stack.pop())
     print(stack.is_empty())
 
-    stack = StackNode()
+    stack = Stack()
     print(stack.is_empty())
     print(stack.pop())
     print(stack.push(2))
