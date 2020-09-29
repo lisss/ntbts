@@ -7,7 +7,7 @@ class Solution:
             return True
         if len(s) % 2:
             return False
-        for i, x in enumerate(s):
+        for x in s:
             if not len(self.stack):
                 self.stack.append(x)
             else:
