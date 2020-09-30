@@ -1,3 +1,7 @@
+open_par = ['(', '[', '{']
+closing_par = [')', ']', '}']
+
+
 class Solution:
     def __init__(self):
         self.stack = []
@@ -8,18 +12,20 @@ class Solution:
         if len(s) % 2:
             return False
         for x in s:
-            if not len(self.stack):
+            if x in open_par:
                 self.stack.append(x)
             else:
-                prev_idx = len(self.stack) - 1
-                if self.stack[prev_idx] == '(' and x == ')':
-                    del self.stack[prev_idx]
-                elif self.stack[prev_idx] == '[' and x == ']':
-                    del self.stack[prev_idx]
-                elif self.stack[prev_idx] == '{' and x == '}':
-                    del self.stack[prev_idx]
+                if x in closing_par and not len(self.stack):
+                    return False
+                prev = self.stack[-1]
+                if prev == '(' and x == ')':
+                    del self.stack[-1]
+                elif prev == '[' and x == ']':
+                    del self.stack[-1]
+                elif prev == '{' and x == '}':
+                    del self.stack[-1]
                 else:
-                    self.stack.append(x)
+                    return False
         if not len(self.stack):
             return True
         return False
