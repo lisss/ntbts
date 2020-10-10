@@ -23,7 +23,7 @@ class AddBinarySolution:
                 mem = 1
             end -= 1
         if mem == 1:
-            res[end + 1] = '1'
-        if res[0] == '0':
+            res[0] = '1'
+        else:
             del res[0]
         return ''.join(res)
