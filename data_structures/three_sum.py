@@ -5,8 +5,7 @@ def find_sum(start, end, target_sum, lst, triplets):
     while start < end:
         curr_sum = lst[start] + lst[end]
         if curr_sum == target_sum:
-            res = [-target_sum, lst[start], lst[end]]
-            triplets.append(res)
+            triplets.append([-target_sum, lst[start], lst[end]])
             start += 1
             end -= 1
             # skip duplicates
@@ -14,9 +13,9 @@ def find_sum(start, end, target_sum, lst, triplets):
                 start += 1
             while start < end and lst[end] == lst[end + 1]:
                 end -= 1
-        if curr_sum > target_sum:
+        elif curr_sum > target_sum:
             end -= 1
-        if curr_sum < target_sum:
+        else:
             start += 1
 
 
