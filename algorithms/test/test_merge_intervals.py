@@ -1,4 +1,4 @@
-from data_structures.merge_intervals import Solution
+from algorithms.merge_intervals import Solution
 
 
 def test_merge_intervals():

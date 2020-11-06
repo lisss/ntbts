@@ -1,4 +1,4 @@
-from data_structures.three_sum import Solution
+from algorithms.three_sum import Solution
 
 
 def test_three_sum():

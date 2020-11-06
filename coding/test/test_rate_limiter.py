@@ -1,7 +1,7 @@
 import pytest
 from mock import patch
 from contextlib import contextmanager
-from data_structures.rate_limiter import RateLimiter, RateExceededException
+from coding.rate_limiter import RateLimiter, RateExceededException
 
 
 @contextmanager

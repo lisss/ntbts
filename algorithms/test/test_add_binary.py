@@ -1,4 +1,4 @@
-from data_structures.add_binary import Solution
+from algorithms.add_binary import Solution
 
 
 def test_add_binary():
