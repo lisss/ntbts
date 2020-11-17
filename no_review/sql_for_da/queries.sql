@@ -819,3 +819,70 @@ SELECT
        NTILE(100) OVER (PARTITION BY account_id ORDER BY total_amt_usd) AS total_percentile
   FROM orders 
  ORDER BY account_id DESC
+
+
+-- LESSON 7: [Advanced] SQL Advanced JOINs & Performance Tuning
+-- 1. Finding Matched and Unmatched Rows with FULL OUTER JOIN
+select * from accounts as a
+full outer join sales_reps as sr
+on a.sales_rep_id = sr.id
+
+-- If unmatched rows existed,
+-- you could isolate them by adding the following line to the end of the query:
+-- WHERE accounts.sales_rep_id IS NULL OR sales_reps.id IS NULL
+
+-- Inequality JOINs
+SELECT accounts.name as account_name,
+       accounts.primary_poc as poc_name,
+       sales_reps.name as sales_rep_name
+  FROM accounts
+  LEFT JOIN sales_reps
+    ON accounts.sales_rep_id = sales_reps.id
+   AND accounts.primary_poc < sales_reps.name
+
+-- Self JOINs
+SELECT we1.id AS we_id,
+       we1.account_id AS we1_account_id,
+       we1.occurred_at AS we1_occurred_at,
+       we1.channel AS we1_channel,
+       we2.id AS we2_id,
+       we2.account_id AS we2_account_id,
+       we2.occurred_at AS we2_occurred_at,
+       we2.channel AS we2_channel
+  FROM web_events we1 
+ LEFT JOIN web_events we2
+   ON we1.account_id = we2.account_id
+  AND we1.occurred_at > we2.occurred_at
+  AND we1.occurred_at <= we2.occurred_at + INTERVAL '1 day'
+ORDER BY we1.account_id, we2.occurred_at
+
+-- Appending Data via UNION
+select * from accounts
+union all
+select * from accounts
+
+-- Pretreating Tables before doing a UNION
+select * from accounts
+where name = 'Walmart'
+union all
+select * from accounts
+where name = 'Disney'
+
+-- Performing Operations on a Combined Dataset
+with double_accounts as (select * from accounts
+union all
+select * from accounts)
+select name, count(*)
+from double_accounts
+group by 1
+order by 2 desc
+
+-- Tricks
+
+-- limit in sub queries for testing
+
+-- aggregate in sub queries
+
+-- query plan
+EXPLAIN
+.. query ..
