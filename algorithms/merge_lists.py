@@ -1,4 +1,5 @@
 from typing import List
+import heapq
 
 
 class ListNode:
@@ -33,15 +34,20 @@ class Merge2Lists:
 
 class MergeKLists:
     def mergeKLists(self, lists: List[ListNode]):
-        if not len(lists):
-            return None
-        if len(lists) == 1:
-            return lists[0]
-        mid = len(lists) // 2
-        left = lists[:mid]
-        right = lists[mid:]
+        count = 0
+        heap = []
+        head = ListNode()
+        curr = head
+        for x in lists:
+            if x:
+                heapq.heappush(heap, (x.val, count, x))
+                count += 1
 
-        left_node = self.mergeKLists(left)
-        right_node = self.mergeKLists(right)
-
-        return merge_2_lists(left_node, right_node)
+        while len(heap):
+            _, _, next = heapq.heappop(heap)
+            curr.next = next
+            curr = curr.next
+            if next.next:
+                heapq.heappush(heap, (next.next.val, count, next.next))
+                count += 1
+        return head.next
