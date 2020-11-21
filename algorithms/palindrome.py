@@ -49,17 +49,12 @@ class Solution:
 
     def validPalindrome(self, s: str):
         start, end = 0, len(s) - 1
-        allowed_to_delete = True
 
         while start < end:
             ch_start, ch_end = s[start], s[end]
             if ch_start != ch_end:
-                if allowed_to_delete:
-                    allowed_to_delete = False
-                    return self.check_palindrome(s, start + 1, end) \
-                        or self.check_palindrome(s, start, end - 1)
-                else:
-                    return False
+                return self.check_palindrome(s, start + 1, end) \
+                    or self.check_palindrome(s, start, end - 1)
             start += 1
             end -= 1
 
