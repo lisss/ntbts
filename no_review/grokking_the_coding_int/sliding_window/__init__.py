@@ -246,7 +246,7 @@ def find_string_anagrams(str1, pattern):
                 matched_count += 1
 
         if len(frequency_map) == matched_count:
-            result_indexes.append(window_end - len(frequency_map) + 1)
+            result_indexes.append(window_start)
 
         if window_end >= len(pattern) - 1:
             left_char = str1[window_start]
