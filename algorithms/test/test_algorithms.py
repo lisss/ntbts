@@ -1,7 +1,7 @@
 from algorithms.add_binary import Solution as AddBinary
 from algorithms.alien_dict import Solution as AlienDict
 from algorithms.meeting_rooms import Solution as MeetingRooms
-from algorithms.merge_intervals import Solution as Intervals
+from algorithms.intervals import Solution as Intervals
 from algorithms.merge_lists import ListNode, Merge2Lists, MergeKLists
 from algorithms.search_rotated_array import Solution as RotatedArray
 from algorithms.three_sum import Solution as ThreeSum
@@ -57,6 +57,16 @@ def test_merge_intervals():
     assert sb.merge([[1, 3], [2, 6], [8, 10], [15, 18]]) == [
         [1, 6], [8, 10], [15, 18]]
     assert sb.merge([[1, 4], [0, 2], [3, 5]]) == [[0, 5]]
+
+
+def test_intervals_intersection():
+    sb = Intervals()
+    assert sb.intervalIntersection(
+        [[0, 2], [5, 10], [13, 23],
+         [24, 25]], [[1, 5], [8, 12], [15, 24], [25, 26]]
+    ) == [[1, 2], [5, 5], [8, 10], [15, 23], [24, 24], [25, 25]]
+    assert sb.intervalIntersection(
+        [[4, 11]], [[1, 2], [8, 11], [12, 13], [14, 15], [17, 19]]) == [[8, 11]]
 
 
 def node_to_list(node: ListNode):
