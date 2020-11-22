@@ -29,3 +29,26 @@ class Solution:
         if not len(self.stack):
             return True
         return False
+
+# https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+
+    def minRemoveToMakeValid(self, s: str):
+        open, invalid = [], []
+        res = ''
+
+        for i, c in enumerate(s):
+            if c == '(':
+                open.append(i)
+            if c == ')':
+                if len(open):
+                    open.pop()
+                else:
+                    invalid.append(i)
+
+        invalid += open
+        invalid = set(invalid)
+
+        for i, x in enumerate(s):
+            if i not in invalid:
+                res += x
+        return res
