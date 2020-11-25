@@ -23,11 +23,19 @@ def add_2_nums(base: int, a: List[int], b: List[int]):
     return res
 
 
+# https://leetcode.com/problems/add-binary/
 class AddBinary:
     def addBinary(self, a: str, b: str):
         return ''.join([str(x) for x in add_2_nums(2, list(a), list(b))])
 
 
+# https://leetcode.com/problems/plus-one/
 class AddOne:
     def plusOne(self, digits: List[int]):
         return add_2_nums(10, digits, [1])
+
+
+# https://leetcode.com/problems/add-strings
+class AddStrings:
+    def addStrings(self, num1: str, num2: str):
+        return ''.join([str(x) for x in add_2_nums(10, list(num1), list(num2))])
