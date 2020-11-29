@@ -5,6 +5,7 @@ from algorithms.intervals import Solution as Intervals
 from algorithms.merge_lists import ListNode, Merge2Lists, MergeKLists
 from algorithms.search_rotated_array import Solution as RotatedArray
 from algorithms.three_sum import Solution as ThreeSum
+from algorithms.min_window import Solution as Window
 
 
 def test_add_binary():
@@ -136,3 +137,13 @@ def test_three_sum():
     assert s.threeSum([-1, 0, 1, 2, -1, -4, -1]) == [[-1, -1, 2], [-1, 0, 1]]
     assert s.threeSum([3, 0, -2, -1, 1, 2]) == [[-2, -1, 3],
                                                 [-2, 0, 2], [-1, 0, 1]]
+
+
+def test_min_window():
+    s = Window()
+    assert s.minWindow('a', 'a') == 'a'
+    assert s.minWindow('a', 'b') == ''
+    assert s.minWindow('ADOBECODEBANC', 'ABC') == 'BANC'
+    assert s.minWindow('ADOBECODEBANCTY', 'ABC') == 'BANC'
+    assert s.minWindow('abc', 'b') == 'b'
+    assert s.minWindow('cabwefgewcwaefgcf', 'cae') == 'cwae'
