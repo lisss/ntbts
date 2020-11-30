@@ -4,13 +4,13 @@ class Solution:
         if len(A) != len(B):
             return False
         swap = []
-        sim_chars = {}
+        sim_chars = set()
         s = 0
         i = 0
 
         while i < len(A):
             if A[i] not in sim_chars:
-                sim_chars[A[i]] = 0
+                sim_chars.add(A[i])
             else:
                 s += 1
             if A[i] != B[i]:
