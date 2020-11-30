@@ -2,7 +2,7 @@ from algorithms.add_nums import AddBinary, AddOne
 from algorithms.alien_dict import Solution as AlienDict
 from algorithms.meeting_rooms import Solution as MeetingRooms
 from algorithms.intervals import Solution as Intervals
-from algorithms.merge_lists import ListNode, Merge2Lists, MergeKLists
+from algorithms.lists import ListNode, Solution as Lists
 from algorithms.search_rotated_array import Solution as RotatedArray
 from algorithms.three_sum import Solution as ThreeSum
 from algorithms.min_window import Solution as Window
@@ -88,7 +88,7 @@ def node_to_list(node: ListNode):
 
 
 def test_merge_2_lists():
-    s = Merge2Lists()
+    s = Lists()
     assert node_to_list(s.mergeTwoLists(None, None)) == []
     assert node_to_list(s.mergeTwoLists(None, ListNode(0))) == [0]
     assert node_to_list(s.mergeTwoLists(ListNode(1), ListNode(1))) == [1, 1]
@@ -100,7 +100,7 @@ def test_merge_2_lists():
 
 
 def test_merge_k_lists():
-    s = MergeKLists()
+    s = Lists()
     assert node_to_list(s.mergeKLists([])) == []
     assert node_to_list(s.mergeKLists([ListNode(1)])) == [1]
     assert node_to_list(s.mergeKLists(
@@ -111,6 +111,16 @@ def test_merge_k_lists():
         [ListNode(1, ListNode(4, ListNode(5))),
          ListNode(1, ListNode(3, ListNode(4))), ListNode(2, ListNode(6))])
     ) == [1, 1, 2, 3, 4, 4, 5, 6]
+
+
+def test_remove_duplicates_from_list():
+    s = Lists()
+    assert node_to_list(s.deleteDuplicates(None)) == []
+    assert node_to_list(s.deleteDuplicates(ListNode(1))) == [1]
+    assert node_to_list(s.deleteDuplicates(
+        ListNode(1, ListNode(1, ListNode(2))))) == [1, 2]
+    assert node_to_list(s.deleteDuplicates(ListNode(1, ListNode(
+        1, ListNode(2, ListNode(3, ListNode(3))))))) == [1, 2, 3]
 
 
 def test_search_rotated_array():

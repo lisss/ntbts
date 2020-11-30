@@ -27,12 +27,10 @@ def merge_2_lists(l1: ListNode, l2: ListNode):
     return head.next
 
 
-class Merge2Lists:
+class Solution:
     def mergeTwoLists(_, l1: ListNode, l2: ListNode):
         return merge_2_lists(l1, l2)
 
-
-class MergeKLists:
     def mergeKLists(self, lists: List[ListNode]):
         count = 0
         heap = []
@@ -51,3 +49,17 @@ class MergeKLists:
                 heapq.heappush(heap, (next.next.val, count, next.next))
                 count += 1
         return head.next
+
+    # https://leetcode.com/problems/remove-duplicates-from-sorted-list
+    def deleteDuplicates(self, head: ListNode):
+        if not head:
+            return None
+
+        curr = head
+
+        while curr.next:
+            if curr.val == curr.next.val:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+        return head
