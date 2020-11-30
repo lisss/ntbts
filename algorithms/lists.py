@@ -50,6 +50,7 @@ class Solution:
                 count += 1
         return head.next
 
+    # https://leetcode.com/problems/remove-duplicates-from-sorted-list
     def deleteDuplicates(self, head: ListNode):
         if not head:
             return None
