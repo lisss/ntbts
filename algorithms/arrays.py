@@ -35,3 +35,18 @@ class Solution:
             i -= 1
 
         return nums1
+
+    # https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+
+    def removeDuplicates(self, nums: List[int]):
+        if len(nums) == 0 or len(nums) == 1:
+            return len(nums)
+
+        j = 0
+        for i in range(len(nums) - 1):
+            if nums[i] != nums[i + 1]:
+                nums[j] = nums[i]
+                j += 1
+        nums[j] = nums[len(nums) - 1]
+        j += 1
+        return j
