@@ -1,6 +1,12 @@
 from typing import List
 
 
+def is_overlap(i1: List[int], i2: List[int]):
+    if i2[0] <= i1[0]:
+        i1, i2 = i2, i1
+    return i1[1] >= i2[0]
+
+
 class Solution:
     # https://leetcode.com/problems/merge-intervals/
     def merge(self, intervals: List[List[int]]):
@@ -41,5 +47,28 @@ class Solution:
                 ia += 1
             else:
                 ib += 1
+
+        return res
+
+    # https://leetcode.com/problems/insert-interval/
+
+    def insert(self, intervals: List[List[int]], newInterval: List[int]):
+        res = []
+        inserted = False
+
+        for i in range(len(intervals)):
+            if not inserted and intervals[i][0] > newInterval[1]:
+                res.append(newInterval)
+                res.append(intervals[i])
+                inserted = True
+
+            elif is_overlap(intervals[i], newInterval):
+                newInterval = [min(intervals[i][0], newInterval[0]),
+                               max(intervals[i][1], newInterval[1])]
+            else:
+                res.append(intervals[i])
+
+        if not inserted:
+            res.append(newInterval)
 
         return res

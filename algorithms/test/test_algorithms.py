@@ -78,6 +78,16 @@ def test_intervals_intersection():
         [[4, 11]], [[1, 2], [8, 11], [12, 13], [14, 15], [17, 19]]) == [[8, 11]]
 
 
+def test_insert_interval():
+    s = Intervals()
+    assert s.insert([[1, 3], [5, 9]], [2, 5]) == [[1, 9]]
+    assert s.insert([[1, 3], [6, 9]], [2, 5]) == [[1, 5], [6, 9]]
+    assert s.insert([[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], [
+                    4, 8]) == [[1, 2], [3, 10], [12, 16]]
+    assert s.insert([[1, 5]], [6, 8]) == [[1, 5], [6, 8]]
+    assert s.insert([[1, 5]], [0, 0]) == [[0, 0], [1, 5]]
+
+
 def node_to_list(node: ListNode):
     curr = node
     res = []
