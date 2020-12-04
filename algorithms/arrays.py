@@ -37,7 +37,6 @@ class Solution:
         return nums1
 
     # https://leetcode.com/problems/remove-duplicates-from-sorted-array/
-
     def removeDuplicates(self, nums: List[int]):
         if len(nums) == 0 or len(nums) == 1:
             return len(nums)
@@ -50,3 +49,15 @@ class Solution:
         nums[j] = nums[len(nums) - 1]
         j += 1
         return j
+
+    # https://leetcode.com/problems/move-zeroes/
+    def moveZeroes(self, nums: List[int]):
+        j = 0
+        for i in range(len(nums)):
+            if nums[i]:
+                tmp = nums[j]
+                nums[j] = nums[i]
+                nums[i] = tmp
+                j += 1
+
+        return nums
