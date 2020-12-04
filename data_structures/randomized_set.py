@@ -31,7 +31,6 @@ class RandomizedSet:
         if val not in self.nums_map:
             return False
         ind = self.nums_map[val]
-        del self.nums_map[val]
         if not len(self.nums_map):
             self.elems[0] = None
             self.next_ind = 0
@@ -40,6 +39,7 @@ class RandomizedSet:
             self.elems[ind] = self.elems[self.next_ind - 1]
             self.elems[self.next_ind - 1] = None
             self.next_ind -= 1
+        del self.nums_map[val]
         return True
 
     def getRandom(self):
