@@ -61,3 +61,20 @@ class Solution:
                 j += 1
 
         return nums
+
+    # https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+    def maxProfit(self, prices: List[int]):
+        buy_price = None
+        profit = 0
+
+        for i in range(len(prices)):
+            curr = prices[i]
+            if buy_price is None:
+                buy_price = curr
+                continue
+            if curr > buy_price:
+                profit = max(profit, curr - buy_price)
+            else:
+                buy_price = curr
+
+        return profit
