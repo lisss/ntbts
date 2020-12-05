@@ -63,7 +63,7 @@ class Solution:
                 continue
             if x == '..':
                 if len(res):
-                    del res[len(res) - 1]
+                    res.pop()
             else:
                 res.append(x)
 
