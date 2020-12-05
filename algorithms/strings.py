@@ -73,11 +73,20 @@ class Solution:
     # https://leetcode.com/problems/custom-sort-string/
     def customSortString(self, S: str, T: str):
         order_map = {}
+        res = []
 
-        for i, c in enumerate(S):
-            order_map[c] = i
+        for c in T:
+            if c in order_map:
+                order_map[c] += 1
+            else:
+                order_map[c] = 1
 
-        res = sorted(
-            T, key=lambda x: order_map[x] if x in order_map else math.inf)
+        for x in S:
+            if x in order_map:
+                res.append(x * order_map[x])
+
+        for x in order_map.keys():
+            if x not in S:
+                res.append(x * order_map[x])
 
         return ''.join(res)
