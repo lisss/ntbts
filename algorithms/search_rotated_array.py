@@ -32,8 +32,49 @@ def search_num(nums: List[int], left: int, right: int, piv: int, target: int):
     return search_num(nums, mid + 1, right, piv, target)
 
 
+def search_pivot_2(nums: List[int], left: int, right: int, piv: int):
+    if left == right:
+        return piv
+
+    mid = left + (right - left) // 2
+    num_left, num_mid, num_right = nums[left], nums[mid], nums[right]
+
+    if num_left < num_right:
+        return piv
+
+    if num_mid == num_right:
+        return search_pivot_2(nums, left, right - 1, piv)
+
+    if num_mid > num_right:
+        piv = mid
+        return search_pivot_2(nums, mid + 1, right, piv)
+    return search_pivot_2(nums, left, mid, piv)
+
+
+def search_num_2(nums: List[int], left: int, right: int, piv: int, target: int):
+    if left > right:
+        return False
+
+    mid = left + (right - left) // 2
+    num_mid = nums[mid]
+
+    if num_mid == target:
+        return True
+
+    if num_mid == nums[right]:
+        return search_num_2(nums, left, right - 1, piv, target)
+
+    if num_mid > target:
+        return search_num_2(nums, left, mid - 1, piv, target)
+    return search_num_2(nums, mid + 1, right, piv, target)
+
+
 class Solution:
+    # https://leetcode.com/problems/search-in-rotated-sorted-array/
     def search(self, nums: List[int], target: int):
+        if not len(nums):
+            return -1
+
         left, right = 0, len(nums) - 1
         pivot = search_pivot(nums, left, right, right)
 
@@ -46,3 +87,21 @@ class Solution:
             left = pivot + 1
 
         return search_num(nums, left, right, pivot, target)
+
+    #  https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+    def search_2(self, nums: List[int], target: int):
+        if not len(nums):
+            return False
+
+        left, right = 0, len(nums) - 1
+        pivot = search_pivot_2(nums, left, right, right)
+
+        if target > nums[pivot]:
+            return False
+
+        if target >= nums[0]:
+            right = pivot
+        else:
+            left = pivot + 1
+
+        return search_num_2(nums, left, right, pivot, target)
