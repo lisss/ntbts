@@ -1,4 +1,5 @@
 from typing import List
+import math
 
 
 class Solution:
@@ -68,3 +69,15 @@ class Solution:
                 res.append(x)
 
         return '/' + '/'.join(res)
+
+    # https://leetcode.com/problems/custom-sort-string/
+    def customSortString(self, S: str, T: str):
+        order_map = {}
+
+        for i, c in enumerate(S):
+            order_map[c] = i
+
+        res = sorted(
+            T, key=lambda x: order_map[x] if x in order_map else math.inf)
+
+        return ''.join(res)
