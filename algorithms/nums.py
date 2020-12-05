@@ -24,18 +24,30 @@ def add_2_nums(base: int, a: List[int], b: List[int]):
 
 
 # https://leetcode.com/problems/add-binary/
-class AddBinary:
+class Nums:
     def addBinary(self, a: str, b: str):
         return ''.join([str(x) for x in add_2_nums(2, list(a), list(b))])
 
-
-# https://leetcode.com/problems/plus-one/
-class AddOne:
+    # https://leetcode.com/problems/plus-one/
     def plusOne(self, digits: List[int]):
         return add_2_nums(10, digits, [1])
 
-
-# https://leetcode.com/problems/add-strings
-class AddStrings:
+    # https://leetcode.com/problems/add-strings
     def addStrings(self, num1: str, num2: str):
         return ''.join([str(x) for x in add_2_nums(10, list(num1), list(num2))])
+
+    # https://leetcode.com/problems/convert-a-number-to-hexadecimal
+    def toHex(self, num: int):
+        nums = list(range(0, 10))
+        chars = ['a', 'b', 'c', 'd', 'e', 'f']
+        digit_map = {i: str(x) for i, x in enumerate(nums + chars)}
+
+        if num < 0:
+            num += pow(2, 32)
+
+        def _do(num):
+            r = num % 16
+            if num - r == 0:
+                return str(digit_map[int(r)])
+            return _do((num - r)/16) + digit_map[int(r)]
+        return _do(num)

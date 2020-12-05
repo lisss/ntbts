@@ -1,4 +1,4 @@
-from algorithms.add_nums import AddBinary, AddOne
+from algorithms.nums import Nums
 from algorithms.alien_dict import Solution as AlienDict
 from algorithms.meeting_rooms import Solution as MeetingRooms
 from algorithms.intervals import Solution as Intervals
@@ -9,7 +9,7 @@ from algorithms.min_window import Solution as Window
 
 
 def test_add_binary():
-    s = AddBinary()
+    s = Nums()
     assert s.addBinary('11', '1') == '100'
     assert s.addBinary('1010', '1011') == '10101'
     assert s.addBinary('0', '0') == '0'
@@ -18,7 +18,7 @@ def test_add_binary():
 
 
 def test_add_one():
-    s = AddOne()
+    s = Nums()
     assert s.plusOne([1, 2, 3]) == [1, 2, 4]
     assert s.plusOne([4, 3, 2, 1]) == [4, 3, 2, 2]
     assert s.plusOne([0]) == [1]
