@@ -137,6 +137,7 @@ def test_search_rotated_array():
     s = RotatedArray()
 
     assert s.search([2, 3, 1], 1) == 2
+    assert s.search([1, 3], 3) == 1
     assert s.search([3, 4, 5, 6, 7, 8, 1, 2], 1) == 6
     assert s.search([4, 5, 6, 7, 0, 1, 2], 0) == 4
     assert s.search([4, 5, 6, 7, 0, 1, 2], 3) == -1
@@ -147,6 +148,12 @@ def test_search_rotated_array():
     assert s.search([5, 1, 3], 3) == 2
     assert s.search([4, 5, 6, 7, 8, 1, 2, 3], 8) == 4
     assert s.search([6, 7, 1, 2, 3, 4, 5], 6) == 0
+
+    assert s.search_2([3, 1, 1], 1) is True
+    assert s.search_2([1, 1, 3, 1], 3) is True
+    assert s.search_2([1, 1, 1, 1, 1, 2, 1], 1) is True
+    assert s.search_2([2, 5, 6, 0, 0, 1, 2], 0) is True
+    assert s.search_2([2, 5, 6, 0, 0, 1, 2], 3) is False
 
 
 def test_three_sum():

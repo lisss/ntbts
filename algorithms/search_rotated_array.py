@@ -32,23 +32,22 @@ def search_num(nums: List[int], left: int, right: int, piv: int, target: int):
     return search_num(nums, mid + 1, right, piv, target)
 
 
-def search_pivot_2(nums: List[int], left: int, right: int, piv: int):
+def search_pivot_2(nums: List[int], left: int, right: int):
     if left == right:
-        return piv
+        return right
 
     mid = left + (right - left) // 2
-    num_left, num_mid, num_right = nums[left], nums[mid], nums[right]
+    num_left, num_mid = nums[left], nums[mid]
 
-    if num_left < num_right:
-        return piv
+    if nums[mid] > nums[mid+1]:
+        return mid
 
-    if num_mid == num_right:
-        return search_pivot_2(nums, left, right - 1, piv)
+    if num_mid == num_left:
+        return search_pivot_2(nums, left + 1, right)
 
-    if num_mid > num_right:
-        piv = mid
-        return search_pivot_2(nums, mid + 1, right, piv)
-    return search_pivot_2(nums, left, mid, piv)
+    if num_mid > num_left:
+        return search_pivot_2(nums, mid, right)
+    return search_pivot_2(nums, left, mid)
 
 
 def search_num_2(nums: List[int], left: int, right: int, piv: int, target: int):
@@ -60,9 +59,6 @@ def search_num_2(nums: List[int], left: int, right: int, piv: int, target: int):
 
     if num_mid == target:
         return True
-
-    if num_mid == nums[right]:
-        return search_num_2(nums, left, right - 1, piv, target)
 
     if num_mid > target:
         return search_num_2(nums, left, mid - 1, piv, target)
@@ -94,7 +90,7 @@ class Solution:
             return False
 
         left, right = 0, len(nums) - 1
-        pivot = search_pivot_2(nums, left, right, right)
+        pivot = search_pivot_2(nums, left, right)
 
         if target > nums[pivot]:
             return False
