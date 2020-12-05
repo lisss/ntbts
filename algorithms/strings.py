@@ -1,5 +1,8 @@
-# https://leetcode.com/problems/buddy-strings/
+from typing import List
+
+
 class Solution:
+    # https://leetcode.com/problems/buddy-strings/
     def buddyStrings(self, A: str, B: str):
         if len(A) != len(B):
             return False
@@ -31,3 +34,21 @@ class Solution:
                 return True
 
         return False
+
+    # https://leetcode.com/problems/group-shifted-strings/
+    def groupStrings(self, strings: List[str]):
+        def _get_key(s: str):
+            res = []
+            for i in range(len(s) - 1):
+                x = (ord(s[i + 1]) - ord(s[i])) % 26
+                res.append(x)
+            return tuple(res)
+
+        grouped = {}
+        for x in strings:
+            key = _get_key(x)
+            if key not in grouped:
+                grouped[key] = []
+            grouped[key].append(x)
+
+        return [x for x in grouped.values()]
