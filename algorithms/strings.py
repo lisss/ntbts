@@ -52,3 +52,19 @@ class Solution:
             grouped[key].append(x)
 
         return [x for x in grouped.values()]
+
+    # https://leetcode.com/problems/simplify-path/
+    def simplifyPath(self, path: str):
+        res = []
+
+        spl = path.split('/')
+        for x in spl:
+            if not x or x == '.':
+                continue
+            if x == '..':
+                if len(res):
+                    del res[len(res) - 1]
+            else:
+                res.append(x)
+
+        return '/' + '/'.join(res)
