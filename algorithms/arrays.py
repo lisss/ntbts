@@ -78,3 +78,24 @@ class Solution:
                 buy_price = curr
 
         return profit
+
+    # https://leetcode.com/problems/rotate-array/
+    def rotate(self, nums: List[int], k: int):
+        copy = []
+        start, end = 0, len(nums)
+        k = k % len(nums)
+        mid = len(nums) - k
+
+        while mid < end:
+            copy.append(nums[mid])
+            mid += 1
+
+        mid = len(nums) - k
+        while start < mid:
+            copy.append(nums[start])
+            start += 1
+
+        start = 0
+        while start < end:
+            nums[start] = copy[start]
+            start += 1
