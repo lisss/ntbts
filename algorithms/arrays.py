@@ -99,3 +99,20 @@ class Solution:
         while start < end:
             nums[start] = copy[start]
             start += 1
+
+    # https://leetcode.com/problems/max-consecutive-ones-iii
+    def longestOnes(self, A: List[int], K: int):
+        window_start, window_end = 0, 0
+        longest = 0
+
+        for window_end in range(len(A)):
+            next_num = A[window_end]
+            K -= 1 - next_num
+
+            if K < 0:
+                K += 1 - A[window_start]
+                window_start += 1
+
+            longest = max(window_end - window_start + 1, longest)
+
+        return longest
