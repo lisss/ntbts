@@ -6,6 +6,7 @@ from algorithms.lists import ListNode, Solution as Lists
 from algorithms.search_rotated_array import Solution as RotatedArray
 from algorithms.three_sum import Solution as ThreeSum
 from algorithms.min_window import Solution as Window
+from algorithms.trees import Solution as Tree, TreeNode
 
 
 def test_add_binary():
@@ -174,3 +175,30 @@ def test_min_window():
     assert s.minWindow('ADOBECODEBANCTY', 'ABC') == 'BANC'
     assert s.minWindow('abc', 'b') == 'b'
     assert s.minWindow('cabwefgewcwaefgcf', 'cae') == 'cwae'
+
+
+def test_kth_smallest_in_bst():
+    s = Tree()
+
+    root = TreeNode(3)
+    root.left = TreeNode(1)
+    root.right = TreeNode(4)
+    root.left.right = TreeNode(2)
+    assert s.kthSmallest(root, 1) == 1
+
+    root = TreeNode(5)
+    root.left = TreeNode(3)
+    root.right = TreeNode(6)
+    root.left.left = TreeNode(2)
+    root.left.right = TreeNode(4)
+    root.left.left.left = TreeNode(1)
+    assert s.kthSmallest(root, 3) == 3
+
+    root = TreeNode(1)
+    root.right = TreeNode(2)
+    assert s.kthSmallest(root, 2) == 2
+
+    root = TreeNode(2)
+    root.left = TreeNode(1)
+    root.right = TreeNode(3)
+    assert s.kthSmallest(root, 3) == 3
