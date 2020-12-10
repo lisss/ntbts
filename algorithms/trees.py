@@ -23,3 +23,11 @@ class Solution:
     def inorderTraversal(self, root: TreeNode):
         res = []
         return self._do_in_order_traverse(root, res)
+
+    # https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+    # TODO: check their follow-up and try to optimize
+    def kthSmallest(self, root: TreeNode, k: int):
+        res = []
+        self._do_in_order_traverse(root, res)
+
+        return res[k - 1]
