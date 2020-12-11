@@ -225,3 +225,14 @@ def test_range_sum_in_bst():
     root.right.left = TreeNode(13)
     root.right.right = TreeNode(18)
     assert s.rangeSumBST(root, 6, 10) == 23
+
+
+def test_tree_paths_in_bst():
+    s = Tree()
+
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+    assert s.binaryTreePaths(root) == ['1->2->4', '1->2->5', '1->3']
