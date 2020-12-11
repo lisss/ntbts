@@ -31,3 +31,18 @@ class Solution:
         self._do_in_order_traverse(root, res)
 
         return res[k - 1]
+
+    # https://leetcode.com/problems/range-sum-of-bst/
+    def rangeSumBST(self, root: TreeNode, low: int, high: int):
+        if not root:
+            return 0
+
+        left = self.rangeSumBST(root.left, low, high) if root.val > low else 0
+        right = self.rangeSumBST(
+            root.right, low, high
+        ) if root.val < high else 0
+
+        if root.val <= high and root.val >= low:
+            return left + right + root.val
+
+        return left + right

@@ -202,3 +202,26 @@ def test_kth_smallest_in_bst():
     root.left = TreeNode(1)
     root.right = TreeNode(3)
     assert s.kthSmallest(root, 3) == 3
+
+
+def test_range_sum_in_bst():
+    s = Tree()
+
+    root = TreeNode(10)
+    root.left = TreeNode(5)
+    root.right = TreeNode(15)
+    root.left.left = TreeNode(3)
+    root.left.right = TreeNode(7)
+    root.right.right = TreeNode(18)
+    assert s.rangeSumBST(root, 7, 15) == 32
+
+    root = TreeNode(10)
+    root.left = TreeNode(5)
+    root.right = TreeNode(15)
+    root.left.left = TreeNode(3)
+    root.left.right = TreeNode(7)
+    root.left.left.left = TreeNode(1)
+    root.left.right.left = TreeNode(6)
+    root.right.left = TreeNode(13)
+    root.right.right = TreeNode(18)
+    assert s.rangeSumBST(root, 6, 10) == 23
