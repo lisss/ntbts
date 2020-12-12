@@ -252,3 +252,30 @@ def test_subtree_all_deepest_in_bst():
     root.left.right.right = TreeNode(4)
 
     assert s.subtreeWithAllDeepest(root).val == 2
+
+
+def test_max_path_sum_in_bst():
+    s = Tree()
+
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    assert s.maxPathSum(root) == 6
+
+    root = TreeNode(-10)
+    root.left = TreeNode(9)
+    root.right = TreeNode(20)
+    root.right.left = TreeNode(15)
+    root.right.right = TreeNode(7)
+    assert s.maxPathSum(root) == 42
+
+    root = TreeNode(5)
+    root.left = TreeNode(4)
+    root.right = TreeNode(8)
+    root.left.left = TreeNode(11)
+    root.right.left = TreeNode(13)
+    root.right.right = TreeNode(4)
+    root.left.left.left = TreeNode(7)
+    root.left.left.right = TreeNode(2)
+    root.right.right.right = TreeNode(1)
+    assert s.maxPathSum(root) == 48
