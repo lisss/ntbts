@@ -1,3 +1,6 @@
+import math
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -84,3 +87,26 @@ class Solution:
 
         res_node, _ = _dfs(root)
         return res_node
+
+    # https://leetcode.com/problems/binary-tree-maximum-path-sum/
+    def maxPathSum(self, root: TreeNode):
+        self.max_sum = -math.inf
+
+        def _do(root):
+            if not root:
+                return 0
+
+            left = _do(root.left)
+            right = _do(root.right)
+
+            max_left = max(left, 0)
+            max_right = max(right, 0)
+
+            curr_sum = max_left + max_right + root.val
+            self.max_sum = max(self.max_sum, curr_sum)
+
+            return max(max_left, max_right) + root.val
+
+        x = _do(root)
+
+        return self.max_sum
