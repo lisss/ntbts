@@ -236,3 +236,19 @@ def test_tree_paths_in_bst():
     root.left.left = TreeNode(4)
     root.left.right = TreeNode(5)
     assert s.binaryTreePaths(root) == ['1->2->4', '1->2->5', '1->3']
+
+
+def test_subtree_all_deepest_in_bst():
+    s = Tree()
+
+    root = TreeNode(3)
+    root.left = TreeNode(5)
+    root.right = TreeNode(1)
+    root.left.left = TreeNode(6)
+    root.left.right = TreeNode(2)
+    root.right.left = TreeNode(0)
+    root.right.right = TreeNode(8)
+    root.left.right.left = TreeNode(7)
+    root.left.right.right = TreeNode(4)
+
+    assert s.subtreeWithAllDeepest(root).val == 2

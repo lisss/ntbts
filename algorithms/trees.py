@@ -66,3 +66,21 @@ class Solution:
         res = []
         _do(root, [], res)
         return res
+
+    # https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/
+    def subtreeWithAllDeepest(self, root: TreeNode):
+        def _dfs(node):
+            if not node:
+                return (None, 0)
+
+            (l_node, l_dist), (r_node, r_dist) = _dfs(
+                node.left), _dfs(node.right)
+
+            if l_dist > r_dist:
+                return (l_node, l_dist + 1)
+            if r_dist > l_dist:
+                return (r_node, r_dist + 1)
+            return (node, l_dist + 1)
+
+        res_node, _ = _dfs(root)
+        return res_node
