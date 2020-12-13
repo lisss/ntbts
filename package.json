@@ -1,0 +1,12 @@
+{
+  "name": "ntbts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lisss/ntbts.git",
+  "author": "lisss <alicedeadbride@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "collections": "5.1.12"
+  }
+}
