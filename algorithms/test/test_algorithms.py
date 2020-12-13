@@ -1,6 +1,6 @@
 from algorithms.nums import Nums
 from algorithms.alien_dict import Solution as AlienDict
-from algorithms.meeting_rooms import Solution as MeetingRooms
+from algorithms.heapq import Solution as HeapQ
 from algorithms.intervals import Solution as Intervals
 from algorithms.lists import ListNode, Solution as Lists
 from algorithms.search_rotated_array import Solution as RotatedArray
@@ -44,7 +44,7 @@ def test_alient_dict():
 
 
 def test_meeting_rooms():
-    s = MeetingRooms()
+    s = HeapQ()
 
     assert s.minMeetingRooms([[7, 10], [2, 4]]) == 1
     assert s.minMeetingRooms([[0, 30], [5, 10], [15, 20]]) == 2
@@ -279,3 +279,11 @@ def test_max_path_sum_in_bst():
     root.left.left.right = TreeNode(2)
     root.right.right.right = TreeNode(1)
     assert s.maxPathSum(root) == 48
+
+
+def test_k_closest_points():
+    s = HeapQ()
+
+    assert s.kClosest([[1, 3], [-2, 2]], 1) == [[-2, 2]]
+    assert s.kClosest([[3, 3], [5, -1], [-2, 4]], 2) == [[3, 3], [-2, 4]]
+    assert s.kClosest([[0, 1], [1, 0]], 2) == [[0, 1], [1, 0]]
