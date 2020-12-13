@@ -19,6 +19,8 @@ class Solution:
 
         return len(booked_clots)
 
+    # https://leetcode.com/problems/k-closest-points-to-origin/
+    # TODO: try to sort heapq desc
     def kClosest(self, points: List[List[int]], K: int):
         def _get_dist(p):
             return p[0] ** 2 + p[1] ** 2
