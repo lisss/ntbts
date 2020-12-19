@@ -59,7 +59,7 @@ class Solution:
                 freq_max = freq
                 idle = (freq - 1) * n
             else:
-                idle = idle - min(freq_max - 1, freq)
+                idle -= min(freq_max - 1, freq)
 
-        res = len(tasks) + idle if idle >= 0 else len(tasks)
-        return res
+        idle = max(idle, 0)
+        return len(tasks) + idle
