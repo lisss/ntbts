@@ -36,3 +36,30 @@ class Solution:
             final_res.append(x)
 
         return final_res
+
+    # https://leetcode.com/problems/task-scheduler/
+    def leastInterval(self, tasks: List[str], n: int):
+        freq_map = {}
+        heap_list = []
+        freq_max = 0
+        idle = 0
+
+        for t in tasks:
+            if t not in freq_map:
+                freq_map[t] = 0
+            freq_map[t] += 1
+
+        for t in freq_map:
+            heapq.heappush(heap_list, (-freq_map[t], t))
+
+        while heap_list:
+            freq, _ = heapq.heappop(heap_list)
+            freq = -freq
+            if not freq_max:
+                freq_max = freq
+                idle = (freq - 1) * n
+            else:
+                idle -= min(freq_max - 1, freq)
+
+        idle = max(idle, 0)
+        return len(tasks) + idle

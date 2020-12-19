@@ -287,3 +287,11 @@ def test_k_closest_points():
     assert s.kClosest([[1, 3], [-2, 2]], 1) == [[-2, 2]]
     assert s.kClosest([[3, 3], [5, -1], [-2, 4]], 2) == [[3, 3], [-2, 4]]
     assert s.kClosest([[0, 1], [1, 0]], 2) == [[0, 1], [1, 0]]
+
+
+def test_task_schedule():
+    s = HeapQ()
+    assert s.leastInterval(["A", "A", "A", "B", "B", "B"], 2) == 8
+    assert s.leastInterval(["A", "A", "A", "B", "B", "B"], 0) == 6
+    assert s.leastInterval(["A", "A", "A", "A", "A",
+                            "A", "B", "C", "D", "E", "F", "G"], 2) == 16
