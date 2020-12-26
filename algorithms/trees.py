@@ -107,6 +107,19 @@ class Solution:
 
             return max(max_left, max_right) + root.val
 
-        x = _do(root)
+        _do(root)
 
         return self.max_sum
+
+    # https://leetcode.com/problems/closest-binary-search-tree-value/
+    def closestValue(self, root: TreeNode, target: float):
+        if target < root.val:
+            next_node = root.left
+        else:
+            next_node = root.right
+        if not next_node:
+            return root.val
+
+        next_min = self.closestValue(next_node, target)
+
+        return min(root.val, next_min, key=lambda x: abs(x - target))

@@ -281,6 +281,29 @@ def test_max_path_sum_in_bst():
     assert s.maxPathSum(root) == 48
 
 
+def test_closest_value_in_bst():
+    s = Tree()
+
+    root = TreeNode(4)
+    root.left = TreeNode(2)
+    root.right = TreeNode(5)
+    root.left.left = TreeNode(1)
+    root.left.right = TreeNode(3)
+    assert s.closestValue(root, 3.714286) == 4
+
+    root = TreeNode(2)
+    root.left = TreeNode(1)
+    root.right = TreeNode(3)
+    assert s.closestValue(root, 0.142857) == 1
+
+    root = TreeNode(4)
+    root.left = TreeNode(1)
+    root.right = TreeNode(5)
+    root.left.right = TreeNode(2)
+    root.left.right.right = TreeNode(3)
+    assert s.closestValue(root, 3.142857) == 3
+
+
 def test_k_closest_points():
     s = HeapQ()
 
