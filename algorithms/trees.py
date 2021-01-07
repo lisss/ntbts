@@ -1,4 +1,5 @@
 import math
+from collections import deque
 
 
 class TreeNode:
@@ -123,3 +124,29 @@ class Solution:
         next_min = self.closestValue(next_node, target)
 
         return min(root.val, next_min, key=lambda x: abs(x - target))
+
+    # https://leetcode.com/problems/binary-tree-level-order-traversal/
+    def levelOrder(self, root: TreeNode):
+        if not root:
+            return
+        res = []
+
+        queue = deque()
+        queue.append(root)
+
+        while queue:
+            level_len = len(queue)
+            level_res = []
+
+            for _ in range(level_len):
+                curr_node = queue.popleft()
+                level_res.append(curr_node.val)
+
+                if curr_node.left:
+                    queue.append(curr_node.left)
+
+                if curr_node.right:
+                    queue.append(curr_node.right)
+            res.append(level_res)
+
+        return res
