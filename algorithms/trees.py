@@ -1,5 +1,6 @@
 import math
 from collections import deque
+from typing import List
 
 
 class TreeNode:
@@ -150,3 +151,44 @@ class Solution:
             res.append(level_res)
 
         return res
+
+
+# https://leetcode.com/problems/serialize-and-deserialize-binary-tree/submissions/
+class Codec:
+    def serialize(self, root: TreeNode):
+        if not root:
+            return ''
+
+        res = []
+
+        def _do(root: TreeNode):
+            if not root:
+                res.append('null')
+            else:
+                res.append(str(root.val))
+                _do(root.left)
+                _do(root.right)
+
+        _do(root)
+
+        return ','.join(res)
+
+    def deserialize(self, data: str):
+        values = data.split(',')
+        if not values or not values[0]:
+            return
+
+        def _do(vals: List[str]):
+            if vals[0] == 'null':
+                vals.pop(0)
+                return
+
+            root = TreeNode(int(vals[0]))
+            vals.pop(0)
+            root.left = _do(vals)
+            root.right = _do(vals)
+
+            return root
+
+        root = _do(values)
+        return root
