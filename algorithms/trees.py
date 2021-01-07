@@ -153,6 +153,7 @@ class Solution:
         return res
 
 
+# https://leetcode.com/problems/serialize-and-deserialize-binary-tree/submissions/
 class Codec:
     def serialize(self, root: TreeNode):
         if not root:
