@@ -72,12 +72,16 @@ class Solution:
         for i in range(len(words) - 1):
             w1, w2 = words[i], words[i + 1]
 
+            is_diff = False
             for i in range(min(len(w1), len(w2))):
                 ch1, ch2 = w1[i], w2[i]
                 if ch1 != ch2:
                     graph[ch1].append(ch2)
                     in_degree[ch2] += 1
+                    is_diff = True
                     break
+            if not is_diff and len(w1) > len(w2):
+                return ''
 
         sources = deque()
 
