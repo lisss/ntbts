@@ -304,6 +304,26 @@ def test_closest_value_in_bst():
     assert s.closestValue(root, 3.142857) == 3
 
 
+def test_lower_common_ancestor_in_bst():
+    s = Tree()
+
+    root = TreeNode(3)
+    root.left = TreeNode(5)
+    root.left.left = TreeNode(6)
+    root.left.right = TreeNode(2)
+    root.left.right.left = TreeNode(7)
+    root.left.right.right = TreeNode(4)
+    root.right = TreeNode(1)
+    root.right.left = TreeNode(0)
+    root.right.right = TreeNode(8)
+    assert s.lowestCommonAncestor(root, TreeNode(5), TreeNode(1)).val == 3
+    assert s.lowestCommonAncestor(root, TreeNode(5), TreeNode(4)).val == 5
+
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    assert s.lowestCommonAncestor(root, TreeNode(1), TreeNode(2)).val == 1
+
+
 def test_k_closest_points():
     s = HeapQ()
 
