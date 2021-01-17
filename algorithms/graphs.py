@@ -104,3 +104,26 @@ class Solution:
             return ''
 
         return ''.join(ordered)
+
+    # https://leetcode.com/problems/is-graph-bipartite/
+    def isBipartite(self, graph: List[List[int]]):
+        grouped = {}
+
+        for i in range(len(graph)):
+            if i not in grouped:
+                queue = []
+                queue.append((i, 0))
+
+                while queue:
+                    vert, group = queue.pop(0)
+                    ch_group = 1 if not group else 0
+
+                    for j in graph[vert]:
+                        if j not in grouped:
+                            grouped[j] = ch_group
+                            queue.append((j, ch_group))
+                        else:
+                            if grouped[j] == group:
+                                return False
+
+        return True
