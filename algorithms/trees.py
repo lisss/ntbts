@@ -152,6 +152,27 @@ class Solution:
 
         return res
 
+    # https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        self.lac = None
+
+        def _do(root: TreeNode):
+            if not root:
+                return False
+
+            is_in_left = _do(root.left)
+            is_in_right = _do(root.right)
+
+            is_self = root.val == p.val or root.val == q.val
+
+            if is_in_left and is_in_right or is_self and (is_in_left or is_in_right):
+                self.lac = root
+
+            return is_in_left or is_in_right or is_self
+
+        _do(root)
+        return self.lac
+
 
 # https://leetcode.com/problems/serialize-and-deserialize-binary-tree/submissions/
 class Codec:
