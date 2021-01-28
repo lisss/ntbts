@@ -1,3 +1,3 @@
 # ntbts
 
-(Not To Be That Stupid)
+learning stuff
