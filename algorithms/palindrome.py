@@ -59,3 +59,21 @@ class Solution:
             end -= 1
 
         return True
+
+    # https://leetcode.com/problems/palindrome-permutation/
+    def canPermutePalindrome(self, s: str):
+        freq_map = {}
+        for ch in s:
+            if ch not in freq_map:
+                freq_map[ch] = 0
+            freq_map[ch] += 1
+
+        is_odd = 0
+
+        for v in freq_map.values():
+            if v % 2 == 1:
+                if not is_odd:
+                    is_odd += 1
+                else:
+                    return False
+        return True
