@@ -127,3 +127,27 @@ class Solution:
                                 return False
 
         return True
+
+    # https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
+    def countComponents(self, n: int, edges: List[List[int]]):
+        graph = {x: [] for x in range(n)}
+
+        for v, u in edges:
+            graph[v].append(u)
+            graph[u].append(v)
+
+        res = 0
+
+        for i in range(n):
+            queue = [i]
+
+            if i in graph:
+                res += 1
+
+            for it in queue:
+                if it in graph:
+                    for ch in graph[it]:
+                        queue.append(ch)
+                    del graph[it]
+
+        return res
