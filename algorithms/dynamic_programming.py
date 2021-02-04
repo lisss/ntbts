@@ -3,7 +3,7 @@ from typing import List
 # https://leetcode.com/problems/partition-equal-subset-sum
 
 
-def can_partition(self, num: List[int]):
+def can_partition(num: List[int]):
     def can_part_rec(dp: List[List[int]], num: List[int], s, i):
         if s == 0:
             return True
@@ -54,9 +54,8 @@ def can_partition_bottom_up(num: List[int]):
     for i in range(1, n):
         for s in range(1, target_s+1):
             if num[i] <= s:
-                dp[i % 2][s] = dp[(i - 1) %
-                                  2][s] or dp[(i - 1) % 2][s - num[i]]
+                dp[i][s] = dp[i - 1][s] or dp[i - 1][s - num[i]]
             else:
-                dp[i % 2][s] = dp[(i - 1) % 2][s]
+                dp[i][s] = dp[i - 1][s]
 
-    return dp[(n - 1) % 2][target_s]
+    return dp[n - 1][target_s]
