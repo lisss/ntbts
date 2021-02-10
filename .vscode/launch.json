@@ -5,17 +5,19 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      "name": "C++ Debug",
+      "type": "cppdbg",
       "request": "launch",
-      "name": "Node: Launch Program",
-      "args": ["-r", "ts-node/register", "${relativeFile}"],
-      "sourceMaps": true,
-      "cwd": "${workspaceRoot}",
-      "protocol": "inspector",
-      "env": {
-        "NODE_PATH": "${workspaceRoot}/ssr"
-      }
+      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "args": [],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb",
+      "preLaunchTask": "C/C++: clang build active file"
     },
+
     {
       "type": "node",
       "request": "launch",
@@ -98,7 +100,7 @@
       "name": "Python: All debug Options",
       "type": "python",
       "request": "launch",
-      "pythonPath": "${command:python.interpreterPath}",
+      "python": "${command:python.interpreterPath}",
       "program": "${file}",
       "module": "module.name",
       "env": {

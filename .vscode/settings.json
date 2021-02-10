@@ -21,7 +21,9 @@
   "editor.formatOnSave": true,
   "typescript.updateImportsOnFileMove.enabled": "never",
   "files.associations": {
-    ".eslintrc": "jsonc"
+    ".eslintrc": "jsonc",
+    "iostream": "cpp",
+    "iosfwd": "cpp"
   },
   "typescript.suggest.autoImports": false,
   "javascript.updateImportsOnFileMove.enabled": "always",

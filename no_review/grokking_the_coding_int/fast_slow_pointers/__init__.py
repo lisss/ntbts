@@ -42,22 +42,29 @@ def find_cycle_start(head):
     return find_start(head, c_len)
 
 
-def main():
-    head = Node(1)
-    head.next = Node(2)
-    head.next.next = Node(3)
-    head.next.next.next = Node(4)
-    head.next.next.next.next = Node(5)
-    head.next.next.next.next.next = Node(6)
+def find_happy_number(num):
+    def _find_sum(num):
+        _sum = 0
+        while (num > 0):
+            digit = num % 10
+            _sum += digit * digit
+            num //= 10
+        return _sum
 
-    head.next.next.next.next.next.next = head.next.next
-    print("LinkedList cycle start: " + str(find_cycle_start(head).value))
+    fast, slow = num, num
 
-    head.next.next.next.next.next.next = head.next.next.next
-    print("LinkedList cycle start: " + str(find_cycle_start(head).value))
+    while True:
+        slow = _find_sum(slow)
+        fast = _find_sum(_find_sum(fast))
+        if slow == fast:
+            break
+    return slow == 1
 
-    head.next.next.next.next.next.next = head
-    print("LinkedList cycle start: " + str(find_cycle_start(head).value))
 
+def find_middle_of_linked_list(head):
+    fast, slow = head, head
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
 
-main()
+    return slow
