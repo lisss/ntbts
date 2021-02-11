@@ -372,3 +372,46 @@ def find_target_subsets_bottom_up_optimized(num: List[int], sm: int):
                 dp[s] += dp[s - num[i]]
 
     return dp[target_sum]
+
+
+def length_of_LIS(nums: List[int]):
+    lengths = {}
+
+    for x in nums:
+        curr_len = 0
+        for k in lengths:
+            if k < x:
+                curr_len = max(curr_len, lengths[k])
+        lengths[x] = curr_len + 1
+
+    return max(lengths.values())
+
+
+def find_nth_ugly_number_dp(n: int):
+    ugly_numbers = [0] * n
+    ugly_numbers[0] = 1
+
+    p2 = 0
+    p3 = 0
+    p5 = 0
+
+    multiplier_2 = 2
+    multiplier_3 = 3
+    multiplier_5 = 5
+
+    for i in range(1, n):
+        ugly_numbers[i] = min(multiplier_2, multiplier_3, multiplier_5)
+
+        if multiplier_2 == ugly_numbers[i]:
+            p2 += 1
+            multiplier_2 = ugly_numbers[p2] * 2
+
+        if multiplier_3 == ugly_numbers[i]:
+            p3 += 1
+            multiplier_3 = ugly_numbers[p3] * 3
+
+        if multiplier_5 == ugly_numbers[i]:
+            p5 += 1
+            multiplier_5 = ugly_numbers[p5] * 5
+
+    return ugly_numbers[-1]

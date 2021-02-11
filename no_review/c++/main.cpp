@@ -45,7 +45,12 @@ Vector::Vector(int s)
         throw length_error{""};
     elem = new double[s];
     sz = s;
+
+    for (int i = 0; i != s; ++i)
+        elem[i] = 0;
 }
+Vector::~Vector() { delete[] elem; } // destructor
+
 double &Vector::operator[](int i)
 {
     if (i < 0 || sz <= i)
@@ -53,6 +58,30 @@ double &Vector::operator[](int i)
     return elem[i];
 }
 int Vector::size() { return sz; }
+
+class Vector2
+{
+    double *elem;
+    int sz;
+
+public:
+    Vector2(initializer_list<double> lst)
+        : elem{new double[lst.size()]},
+          sz{static_cast<int>(lst.size())}
+    {
+        copy(lst.begin(), lst.end(), elem);
+    }
+    void push_back(double v){};
+};
+
+Vector2 read(istream &is)
+{
+    Vector2 v = {1, 2};
+
+    for (double d; is >> d;)
+        v.push_back(d);
+    return v;
+}
 
 double read_and_sum(int s) // read s integers from cin and return their sum; s is assumed to be positive
 {
@@ -138,17 +167,43 @@ namespace My_code
 {
     class complex
     {
+        double re, im;
+
+    public:
+        complex(double r, double i) : re{r}, im{i} {}
+        complex(double r) : re{r}, im{0} {}
+        complex() : re{0}, im{0} {}
+
+        double real() const { return re; }
+        void real(double r) { re = r; }
+        double imag() const { return im; }
+        void imag(double i) { im = i; }
+
+        complex &operator+=(complex z)
+        {
+            re += z.re;
+            im += z.im;
+        }
+        complex &operator-=(complex z)
+        {
+            re -= z.re;
+            im -= z.im;
+            return *this;
+        }
     };
-    complex sqrt(complex);
+
+    complex sqrt(complex){};
+    complex operator+(complex a, complex b) { return a += b; }
     int main();
 } // namespace My_code
 
-// int My_code::main()
-// {
-//     complex z = 1.2;
-//     auto z2 = sqrt(z);
-//     cout << '{' << z2.real() << ',' << z2.imag() << "}\n";
-// }
+int My_code::main()
+{
+    complex z{1.2};
+    auto z2 = sqrt(z);
+    cout << '{' << z2.real() << ',' << z2.imag() << "}\n";
+    auto z3 = z + z2;
+}
 
 void user(int sz) noexcept
 {
