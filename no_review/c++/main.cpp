@@ -1,7 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <numeric>
-#include "Vector.h"
+#include <list>
+#include "containers.h"
 
 using namespace std;
 
@@ -72,6 +73,39 @@ public:
         copy(lst.begin(), lst.end(), elem);
     }
     void push_back(double v){};
+};
+
+class Vector_container : public Container
+{
+    Vector v;
+
+public:
+    Vector_container(int s) : v(s) {}
+    ~Vector_container() {}
+    double &operator[](int i) { return v[i]; }
+    int size() { return v.size(); }
+};
+
+class List_container : public Container
+{
+    list<double> ld;
+
+public:
+    List_container(){};
+    List_container(initializer_list<double> lst) : ld{lst} {}
+    ~List_container(){};
+
+    double &operator[](int i)
+    {
+        for (auto &x : ld)
+        {
+            if (i == 0)
+                return x;
+            --i;
+        }
+        throw out_of_range("List_container");
+    }
+    int size() { return ld.size(); }
 };
 
 Vector2 read(istream &is)
@@ -203,12 +237,21 @@ int My_code::main()
     auto z2 = sqrt(z);
     cout << '{' << z2.real() << ',' << z2.imag() << "}\n";
     auto z3 = z + z2;
+    return 0;
 }
 
 void user(int sz) noexcept
 {
     Vector v(sz);
     iota(&v[0], &v[sz], 1);
+}
+
+void use(Container &c)
+{
+    int sz = c.size();
+
+    for (int i = 0; i != sz; ++i)
+        cout << typeid(c).name() << ": " << c[i] << endl;
 }
 
 int main()
@@ -262,7 +305,13 @@ int main()
 
     // My_code::main();
 
-    user(3);
+    // user(3);
 
     static_assert(sizeof(int) >= 4, "int too small");
+
+    Vector_container vc{1};
+    use(vc);
+
+    List_container lc{1, 2, 3};
+    use(lc);
 }

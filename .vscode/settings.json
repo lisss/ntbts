@@ -23,7 +23,8 @@
   "files.associations": {
     ".eslintrc": "jsonc",
     "iostream": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "list": "cpp"
   },
   "typescript.suggest.autoImports": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
