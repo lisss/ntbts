@@ -37,7 +37,7 @@
   "python.linting.pycodestyleArgs": ["--max-line-length=100"],
   "python.linting.enabled": true,
   "python.linting.lintOnSave": true,
-  "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.7/bin/python3",
+  "python.pythonPath": "~/.pyenv/versions/3.9.1/bin/python",
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
   "python.testing.pytestEnabled": true
