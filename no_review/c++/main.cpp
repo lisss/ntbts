@@ -50,6 +50,16 @@ Vector::Vector(int s)
     for (int i = 0; i != s; ++i)
         elem[i] = 0;
 }
+Vector::Vector(const Vector &a) : elem{new double[a.sz]}, sz{a.sz}
+{
+    for (int i = 0; i != sz; ++i)
+        elem[i] = a.elem[i];
+}
+Vector::Vector(Vector &&a) : elem{new double[a.sz]}, sz{a.sz}
+{
+    a.elem = nullptr;
+    a.sz = 0;
+}
 Vector::~Vector() { delete[] elem; } // destructor
 
 double &Vector::operator[](int i)
@@ -57,6 +67,18 @@ double &Vector::operator[](int i)
     if (i < 0 || sz <= i)
         throw out_of_range{"Vector::operator[]"};
     return elem[i];
+}
+Vector &Vector::operator=(const Vector &a)
+{
+    double *p = new double[a.sz];
+    for (int i = 0; i != a.sz; ++i)
+    {
+        p[i] = a.elem[i];
+        delete[] elem;
+        elem = p;
+        sz = a.sz;
+        return *this;
+    }
 }
 int Vector::size() { return sz; }
 
@@ -253,6 +275,104 @@ void use(Container &c)
     for (int i = 0; i != sz; ++i)
         cout << typeid(c).name() << ": " << c[i] << endl;
 }
+
+class Shape
+{
+public:
+    Shape() {}
+    ~Shape(){};
+    virtual void draw() = 0;
+};
+
+class Smiley : public Shape
+{
+};
+
+Shape *read_shape(istream &is)
+{
+}
+
+void check_hier_type()
+{
+    Shape *ps{read_shape(cin)};
+    { // nullptr if ps is not of type Smiley
+        if (Smiley *p = dynamic_cast<Smiley *>(ps))
+        {
+            // call Smiley specific method
+        }
+    };
+    Smiley &r{dynamic_cast<Smiley &>(*ps)}; // bad_cast exception if ps is not of type Smiley
+}
+
+// unique_ptr to avoid resourse leaks
+unique_ptr<Shape> read_shape_safe(istream &is)
+{
+}
+void use_shape_safe()
+{
+    // vector<unique_ptr<Shape>> v;
+}
+
+void bad_copy(Vector::Vector v1)
+{
+    Vector::Vector v2 = v1;
+    v1[0] = 2; // v2[0] is also 2!
+    v2[1] = 3; // v1[1] is also 3!
+}
+
+// explicit notion of using default copy & move
+class Y
+{
+public:
+    Y(int);
+    Y(const Y &) = default;
+    Y(Y &&) = default;
+};
+
+// explicit notion of no default copy & move
+class Y1
+{
+public:
+    Y1(int);
+    Y1(const Y &) = delete;
+    Y1(Y &&) = delete;
+};
+
+class Z
+{
+public:
+    Z(int);
+};
+
+Z z1(3);
+Z z1{3};
+Z z1 = 3;
+
+class Z1
+{
+public:
+    explicit Z1(int);
+};
+
+Z1 z1(3);
+Z1 z1{3};
+// Z1 z1 = 3; // not allowed
+
+vector<thread> my_threads;
+Vector::Vector init(int n)
+{
+    thread t();
+    // my_threads.push_back(move(t));
+
+    Vector::Vector vec(n);
+
+    for (int i = 0; i != vec.size(); ++i)
+        vec[i] = 777;
+
+    return vec;
+}
+
+auto v = init(10000);
 
 int main()
 {
