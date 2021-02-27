@@ -1,3 +1,6 @@
+from collections import deque
+
+
 def find_subsets(nums):
     subsets = []
     # start by adding the empty subset
@@ -33,5 +36,62 @@ def find_subsets_with_duplicates(nums):
     return subsets
 
 
-# print(find_subsets([1, 3, 3]))
-print(find_subsets_with_duplicates([1, 5, 3, 3]))
+def find_permutations(nums):
+    result = []
+    permutations = deque()
+    permutations.append([])
+
+    for num in nums:
+        n = len(permutations)
+        for _ in range(n):
+            old_perm = permutations.popleft()
+            for j in range(len(old_perm) + 1):
+                new_perm = list(old_perm)
+                new_perm.insert(j, num)
+
+                if len(new_perm) == len(nums):
+                    result.append(new_perm)
+                else:
+                    permutations.append(new_perm)
+    return result
+
+
+def find_letter_case_string_permutations(s: str):
+    permutations = []
+    permutations.append(s)
+
+    for i in range(len(s)):
+        if not s[i].isalpha():
+            continue
+        n = len(permutations)
+        for j in range(n):
+            new_s = list(permutations[j])
+            new_s[i] = new_s[i].swapcase()
+            permutations.append(''.join(new_s))
+
+    return permutations
+
+
+class ParenthesisStr:
+    def __init__(self, s, open_count, close_count):
+        self.s = s
+        self.open_count = open_count
+        self.close_count = close_count
+
+
+def generate_valid_parentheses(num):
+    result = []
+    queue = deque()
+    queue.append(ParenthesisStr('', 0, 0))
+
+    while queue:
+        ps = queue.popleft()
+        if ps.open_count == ps.close_count == num:
+            result.append(ps.s)
+        if ps.open_count < num:
+            queue.append(ParenthesisStr(
+                ps.s + '(', ps.open_count + 1, ps.close_count))
+        if ps.close_count < ps.open_count:
+            queue.append(ParenthesisStr(
+                ps.s + ')', ps.open_count, ps.close_count + 1))
+    return result
