@@ -95,3 +95,41 @@ def generate_valid_parentheses(num):
             queue.append(ParenthesisStr(
                 ps.s + ')', ps.open_count, ps.close_count + 1))
     return result
+
+
+class AbbreviatedWord:
+    def __init__(self, s, start, count):
+        self.s = s
+        self.start = start
+        self.count = count
+
+
+def generate_generalized_abbreviation(word):
+    wordLen = len(word)
+    result = []
+    queue = deque()
+    queue.append(AbbreviatedWord([], 0, 0))
+    while queue:
+        abWord = queue.popleft()
+        if abWord.start == wordLen:
+            if abWord.count != 0:
+                abWord.s.append(str(abWord.count))
+            result.append(''.join(abWord.s))
+        else:
+            # continue abbreviating by incrementing the current abbreviation count
+            queue.append(AbbreviatedWord(list(abWord.s),
+                                         abWord.start + 1, abWord.count + 1))
+
+            # restart abbreviating, append the count and the current character to the string
+            if abWord.count != 0:
+                abWord.s.append(str(abWord.count))
+
+            newWord = list(abWord.s)
+            newWord.append(word[abWord.start])
+            queue.append(AbbreviatedWord(newWord, abWord.start + 1, 0))
+
+    return result
+
+
+print("Generalized abbreviation are: " +
+      str(generate_generalized_abbreviation("BAT")))
