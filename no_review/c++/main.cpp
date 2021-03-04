@@ -40,7 +40,8 @@ void init_vector(Vector0 &v, int s)
     v.size = s;
 };
 
-Vector::Vector(int s)
+template <typename T>
+Vector<T>::Vector(int s)
 {
     if (s < 0)
         throw length_error{""};
@@ -50,25 +51,31 @@ Vector::Vector(int s)
     for (int i = 0; i != s; ++i)
         elem[i] = 0;
 }
-Vector::Vector(const Vector &a) : elem{new double[a.sz]}, sz{a.sz}
+template <typename T>
+Vector<T>::Vector(const Vector &a) : elem{new double[a.sz]}, sz{a.sz}
 {
     for (int i = 0; i != sz; ++i)
         elem[i] = a.elem[i];
 }
-Vector::Vector(Vector &&a) : elem{new double[a.sz]}, sz{a.sz}
+template <typename T>
+Vector<T>::Vector(Vector &&a) : elem{new double[a.sz]}, sz{a.sz}
 {
     a.elem = nullptr;
     a.sz = 0;
 }
-Vector::~Vector() { delete[] elem; } // destructor
+template <typename T>
+Vector<T>::~Vector() { delete[] elem; } // destructor
 
-double &Vector::operator[](int i)
+template <typename T>
+T &Vector<T>::operator[](int i)
 {
     if (i < 0 || sz <= i)
         throw out_of_range{"Vector::operator[]"};
     return elem[i];
 }
-Vector &Vector::operator=(const Vector &a)
+
+template <typename T>
+Vector<T> &Vector<T>::operator=(const Vector &a)
 {
     double *p = new double[a.sz];
     for (int i = 0; i != a.sz; ++i)
@@ -80,7 +87,20 @@ Vector &Vector::operator=(const Vector &a)
         return *this;
     }
 }
-int Vector::size() { return sz; }
+template <typename T>
+int Vector<T>::size() { return sz; }
+
+template <typename T>
+T *begin(Vector<T> &v)
+{
+    return v.size() ? &v[0] : nullptr;
+}
+
+template <typename T>
+T *end(Vector<T> &v)
+{
+    return begin(v) + &v.size();
+}
 
 class Vector2
 {
@@ -99,7 +119,7 @@ public:
 
 class Vector_container : public Container
 {
-    Vector v;
+    Vector<double> v;
 
 public:
     Vector_container(int s) : v(s) {}
@@ -264,7 +284,7 @@ int My_code::main()
 
 void user(int sz) noexcept
 {
-    Vector v(sz);
+    Vector<double> v(sz);
     iota(&v[0], &v[sz], 1);
 }
 
@@ -313,9 +333,9 @@ void use_shape_safe()
     // vector<unique_ptr<Shape>> v;
 }
 
-void bad_copy(Vector::Vector v1)
+void bad_copy(Vector<double>::Vector v1)
 {
-    Vector::Vector v2 = v1;
+    Vector<double>::Vector v2 = v1;
     v1[0] = 2; // v2[0] is also 2!
     v2[1] = 3; // v1[1] is also 3!
 }
@@ -359,12 +379,12 @@ Z1 z1{3};
 // Z1 z1 = 3; // not allowed
 
 vector<thread> my_threads;
-Vector::Vector init(int n)
+Vector<double>::Vector init(int n)
 {
     thread t();
     // my_threads.push_back(move(t));
 
-    Vector::Vector vec(n);
+    Vector<double>::Vector vec(n);
 
     for (int i = 0; i != vec.size(); ++i)
         vec[i] = 777;
@@ -373,6 +393,112 @@ Vector::Vector init(int n)
 }
 
 auto v = init(10000);
+
+void write(Vector<string> &vs)
+{
+    for (int i = 0; i != vs.size(); ++i)
+    {
+        cout << vs[i] << endl;
+    }
+}
+
+void write2(Vector<string> &vs)
+{
+    for (auto &s : vs)
+    {
+        cout << s << endl;
+    }
+}
+
+template <typename T, int N>
+struct Buffer
+{
+    using value_type = T; // type alias
+    constexpr int size() { return N; }
+    T[N];
+};
+
+template <typename Container, typename Value>
+Value sum(Container &c, Value v)
+{
+    for (auto x : c)
+        v += x return v
+}
+
+void user(Vector<int> &vi, list<double> &ld)
+{
+    auto x = sum(vi, 0);
+    auto d = sum(vi, 0.0);
+
+    double dd = sum(ld, 0.0);
+}
+
+// aliases
+template <typename C>
+using Element_type = C::value_type; // the type of C's elements
+
+template <typename Containter_gen>
+void algo(Containter_gen &c)
+{
+    Vector<Element_type<Containter_gen>> vec;
+}
+
+template <typename Key, typename Value>
+class Map
+{
+};
+
+template <typename Value>
+using String_map = Map<string, Value>;
+
+String_map<int> m;
+// ----
+
+// FUNCTOR
+template <typename T>
+class Less_than
+{
+    const T val; // value to compare against
+
+public:
+    Less_than(const T &v) : val(v){};
+    bool operator()(const T &x) const {return x < val};
+};
+
+template <typename C, typename P>
+int count(const C &c, P pred)
+{
+    int cnt = 0;
+    for (auto &x : c)
+        if (pred(x))
+            ++cnt;
+    return cnt;
+}
+
+void f(const Vector<int> &vec, const list<string> &lst, int x, const string &s)
+{
+    cout << "number of values less than " << x << ": "
+         << count(vec, Less_than{x}) << endl;
+    cout << "number of values less than " << s << ": "
+         << count(lst, Less_than{s}) << endl;
+}
+
+// generating function objects implicitly (lambda expression)
+void f(const Vector<int> &vec, const list<string> &lst, int x, const string &s)
+{
+    cout << "number of values less than " << x << ": "
+         << count(vec, [&](int a) { return a < x; }) << endl;
+    cout << "number of values less than " << s << ": "
+         << count(lst, [&](string &a) { return a < s; }) << endl;
+}
+
+// variadic templates
+template <typename T, typename... Tail>
+void f_var(T head, Tail... tail)
+{
+    g(head);
+    f_var(... tail);
+}
 
 int main()
 {
@@ -434,4 +560,11 @@ int main()
 
     List_container lc{1, 2, 3};
     use(lc);
+
+    Vector<list<int>> vli(45);
+
+    Buffer<char, 1024> bf;
+
+    Less_than lti{42};
+    lti(4); // true
 }
