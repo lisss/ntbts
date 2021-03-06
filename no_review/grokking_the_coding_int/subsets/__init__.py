@@ -131,5 +131,87 @@ def generate_generalized_abbreviation(word):
     return result
 
 
-print("Generalized abbreviation are: " +
-      str(generate_generalized_abbreviation("BAT")))
+def diff_ways_to_evaluate_expression(input):
+    return diff_ways_to_evaluate_expression_rec(input, {})
+
+
+def diff_ways_to_evaluate_expression_rec(input, map):
+    if input in map:
+        return map[input]
+
+    result = []
+
+    if '+' not in input and '-' not in input and '*' not in input:
+        result.append(int(input))
+        return result
+    for i in range(len(input)):
+        char = input[i]
+        if not char.isdigit():
+            left = diff_ways_to_evaluate_expression_rec(input[:i], map)
+            right = diff_ways_to_evaluate_expression_rec(input[i+1:], map)
+
+            for part1 in left:
+                for part2 in right:
+                    if char == '+':
+                        result.append(part1 + part2)
+                    elif char == '-':
+                        result.append(part1 - part2)
+                    elif char == '*':
+                        result.append(part1 * part2)
+    map[input] = result
+    return result
+
+
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+
+def find_unique_trees(n):
+    if n <= 0:
+        return []
+    return find_unique_trees_rec(1, n)
+
+
+def find_unique_trees_rec(start, end):
+    result = []
+
+    if start > end:
+        result.append(None)
+        return result
+
+    for i in range(start, end + 1):
+        left_subtrees = find_unique_trees_rec(start, i - 1)
+        right_subtrees = find_unique_trees_rec(i + 1, end)
+
+        for left in left_subtrees:
+            for right in right_subtrees:
+                root = TreeNode(i)
+                root.left = left
+                root.right = right
+                result.append(root)
+
+    return result
+
+
+def count_unique_trees(n):
+    return count_unique_trees_rec(n, {})
+
+
+def count_unique_trees_rec(n, map):
+    if n in map:
+        return map[n]
+    if n <= 1:
+        return 1
+    result = 0
+
+    for i in range(1, n + 1):
+        count_left_subtrees = count_unique_trees_rec(i - 1, map)
+        count_right_subtrees = count_unique_trees_rec(n - i, map)
+
+        result += (count_left_subtrees * count_right_subtrees)
+
+    map[n] = result
+    return result
