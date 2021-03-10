@@ -40,5 +40,8 @@
   "python.pythonPath": "~/.pyenv/versions/3.9.1/bin/python",
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
-  "python.testing.pytestEnabled": true
+  "python.testing.pytestEnabled": true,
+  "prettier.tabWidth": 4,
+  "prettier.singleQuote": true,
+  "javascript.format.semicolons": "insert",
 }
