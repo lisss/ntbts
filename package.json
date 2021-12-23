@@ -8,5 +8,8 @@
   "private": false,
   "dependencies": {
     "collections": "5.1.12"
+  },
+  "devDependencies": {
+    "prettier": "2.3.2"
   }
 }

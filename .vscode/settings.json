@@ -43,5 +43,6 @@
   "python.testing.pytestEnabled": true,
   "prettier.tabWidth": 4,
   "prettier.singleQuote": true,
+  "prettier.arrowParens": "avoid",
   "javascript.format.semicolons": "insert",
 }
