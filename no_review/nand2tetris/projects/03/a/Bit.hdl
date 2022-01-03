@@ -14,5 +14,7 @@ CHIP Bit {
     OUT out;
 
     PARTS:
-    // Put your code here:
+    // using `loop` as an arbitrary name for a pin to make a loop
+    Mux (a=loop, b=in, sel=load, out=a);
+    DFF (in=a, out=out, out=loop);
 }
