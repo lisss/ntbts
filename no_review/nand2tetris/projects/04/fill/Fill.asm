@@ -12,3 +12,64 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+(INIT_PTR)
+    @ptr
+    M=0
+
+(EVENT_LOOP)
+    @KBD
+    D=M
+
+    @BLACK
+    D;JNE
+
+    @WHITE
+    0;JMP
+
+(BLACK)
+    // Check if ptr exceeds screen memory range
+    @ptr
+    D=M
+    @8192 // (512x256) / 16
+    D=D-A
+    @INIT_PTR
+    D;JEQ
+
+    // Otherwise, update the screen.
+    @ptr
+    D=M
+
+    @SCREEN
+    A=A+D
+    M=-1
+
+    // Increment pointer to the next 16 characters.
+    @ptr
+    M=M+1
+
+    @BLACK
+    0;JMP
+
+(WHITE)
+    // Check if ptr exceeds screen memory range
+    @ptr
+    D=M
+    @8192 // (512x256) / 16
+    D=D-A
+    @INIT_PTR
+    D;JEQ
+
+    // Otherwise, update the screen.
+    @ptr
+    D=M
+
+    @SCREEN
+    A=A+D
+    M=0
+
+    // Increment pointer to the next 16 characters.
+    @ptr
+    M=M+1
+
+    @WHITE
+    0;JMP
